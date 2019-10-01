@@ -3,7 +3,7 @@
           
           <div class="copyright" id="copyright">
             &copy;
-			OASYS - Open Account System
+			UST - Campus Ministry Recollection line-up
           </div>
         </div>
       </footer>

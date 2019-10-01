@@ -2,41 +2,63 @@
 <link href="<?php echo base_url() .'public'; ?>/assets/jqueryui/jquery-ui.theme.min.css" rel="stylesheet" />
 <script src="<?php echo base_url() .'public'; ?>/assets/jqueryui/jquery-ui.min.js"></script>
 
-<script>
-  $( function() {
-    var dateFormat = "mm/dd/yy",
-      from = $( "#from" )
-        .datepicker({
-          defaultDate: "+1w",
-          changeMonth: true,
-          numberOfMonths: 3
-        })
-        .on( "change", function() {
-          to.datepicker( "option", "minDate", getDate( this ) );
-        }),
-      to = $( "#to" ).datepicker({
-        defaultDate: "+1w",
-        changeMonth: true,
-        numberOfMonths: 3
-      })
-      .on( "change", function() {
-        from.datepicker( "option", "maxDate", getDate( this ) );
-      });
- 
-    function getDate( element ) {
-      var date;
-      try {
-        date = $.datepicker.parseDate( dateFormat, element.value );
-      } catch( error ) {
-        date = null;
-      }
- 
-      return date;
-    }
-  } );
- </script>
+<script language="javascript">
+
+function addRow(tableId)
+{
+	
+	
+	if(tableId == "section")
+	{
+
+		var rowCount = document.getElementById("section").rows.length; 
+		var initialElementCount = 0;
+		var tbody = document.getElementById("section").getElementsByTagName("tbody")[0];
+		var row = document.createElement("TR");
+		var i=0;
+		
+		var cell0 = document.createElement("TD");
+			cell0.innerHTML = "<td align='center'>"+ rowCount +".</td>";
+		
+		var cell1 = document.createElement("TD");
+			cell1.innerHTML = "<td><input type='text' size='10' class=\"form-control\" maxlength='10' name='section" + rowCount + "'id='section" + rowCount + "' value=''></td>";
+		
+		var cell2 = document.createElement("TD");
+			cell2.innerHTML = "<td align='center'><input type='number' class=\"form-control\" size='4' maxlength='4' name='sectionCount" + rowCount + "' id='sectionCount" + rowCount + "' value='' ></td>";
+		
+			
+		document.getElementById("rowno").value = rowCount;
+		row.appendChild(cell0);
+		row.appendChild(cell1);
+		row.appendChild(cell2);
+		tbody.appendChild(row);
+	
+	}
+					
+}
+		 
+function deleteRow(tableId)
+{
+	
+	if(tableId == "section")
+	{
+		
+		var elementTable = document.getElementById("section");
+		var rowCount = document.getElementById("section").rows.length-1;
+		
+		if(rowCount >1)
+		{
+			elementTable.deleteRow(rowCount);
+			var totalR = rowCount-1;
+			document.getElementById("rowno").value = totalR;
+		}
+	}
+}
+
+</script>
 
 <div class="content">
+<form>
 	<div class="row">
 		<div class="col-md-12">
 		<?php if($this->input->get('message') != ''){ ?>
@@ -63,7 +85,6 @@
 				</div>
 				<div class="card-body">
 				
-				<form>
 					<div class="row">
 						<div class="col-md-12 pr-1">
 							<div class="form-group">
@@ -111,10 +132,38 @@
 							</div>
 						</div>
 					</div>
-				</form> <!-- form end -->
+					
 				</div><!-- card body end-->
             </div> <!--card-->
+			
+			<div class="card">
+				<div class="card-header">
+					<h5 class="title">Section</h5>
+				</div>
+				<div class="card-body">
+ 							<input type="hidden" name="rowno" id="rowno" value="1">
+							<table id="section" class="table table-condensed table-striped"  cellspacing="6"  border="0">
+								<tr>
+									<td><b>No.</b></td>
+									<td><b>Section</b></td>
+									<td><b>Count</b></td>
+								</tr>
+							
+								<tr>
+									<td>1.</td>
+									<td><input type="text" class="form-control" name="section1" id="section1"  size='10' maxlength='10' value=""/></td>
+									<td><input type="number" class="form-control" name="sectionCount1" id="sectionCount1" size='4'  maxlength='4' value=""/></td>
+								</tr>			
+							</table>
+							
+							<input type="button"  class="btn btn-success" value="ADD" onclick="addRow('section')" />
+							<input type="button" class="btn btn-warning" value="DELETE" onclick="deleteRow('section')" />
+				</div>
+			</div> <!-- card section> -->
+				
+			
           </div>
 		</div> <!--content row end-->
+</form>
 </div> <!--content end -->
       
