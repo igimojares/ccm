@@ -62,6 +62,7 @@
 					<h5 class="title">UST Center for Campus Ministry Recollection Line-up AY 2019-2020</h5>
 				</div>
 				<div class="card-body">
+				
 				<form>
 					<div class="row">
 						<div class="col-md-12 pr-1">
@@ -74,45 +75,46 @@
 							</div>
 						</div>
 					</div>
-				   
-				  <div class="row">
-					<div class="col-md-6 pr-1">
-						<div class="form-group">
-							<label>Date<span style="color:red;">*</label>
-							<input type="datetime-local" name="date" id="datepicker" class="form-control" placeholder="Date" value="<?php echo set_value('date'); ?>">
-							<?php echo form_error('lastName', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
-						</div>
-                    </div>
 					
-					<div class="col-md-6 pr-1">
-                      <div class="form-group">
-                        <label>Venue<span style="color:red;">*</label>
-                        <input type="text" name="venue" id="venue" class="form-control" placeholder="Venue" value="<?php echo set_value('date'); ?>">
-						<?php echo form_error('venue', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
-                      </div>
-                    </div>
+					<div class="row">
+						<div class="col-md-6 pr-1">
+							<div class="form-group">
+								<label>Date<span style="color:red;">*</label>
+								<input type="datetime-local" name="date" id="datepicker" class="form-control" placeholder="Date" value="<?php echo set_value('date'); ?>">
+								<?php echo form_error('lastName', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
+							</div>
+						</div>
+						
+						<div class="col-md-6 pr-1">
+						  <div class="form-group">
+							<label>Venue<span style="color:red;">*</label>
+							<input type="text" name="venue" id="venue" class="form-control" placeholder="Venue" value="<?php echo set_value('date'); ?>">
+							<?php echo form_error('venue', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
+						  </div>
+						</div>
 					</div>
 					
 					<div class="row">
-                    <div class="col-md-6 pr-1">
-                      <div class="form-group">
-                        <label>Speaker<span style="color:red;">*</label>
-                        <input type="text" name="speaker" id="speaker" class="form-control" placeholder="Speaker" value="<?php echo set_value('date'); ?>">
-						<?php echo form_error('speaker', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
-                      </div>
-                    </div>
-					<div class="col-md-6 pr-1">
-                      <div class="form-group">
-                        <label>Main Celebrant<span style="color:red;">*</label>
-                        <input type="text" name="mainCelebrant" id="mainCelebrant" class="form-control" placeholder="Main Celebrant" value="<?php echo set_value('date'); ?>">
-						<?php echo form_error('mainCelebrant', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
-                      </div>
-                    </div>
+						<div class="col-md-6 pr-1">
+							<div class="form-group">
+								<label>Speaker<span style="color:red;">*</label>
+								<input type="text" name="speaker" id="speaker" class="form-control" placeholder="Speaker" value="<?php echo set_value('date'); ?>">
+								<?php echo form_error('speaker', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
+							</div>
+						</div>
+						
+						<div class="col-md-6 pr-1">
+							<div class="form-group">
+								<label>Main Celebrant<span style="color:red;">*</label>
+								<input type="text" name="mainCelebrant" id="mainCelebrant" class="form-control" placeholder="Main Celebrant" value="<?php echo set_value('date'); ?>">
+								<?php echo form_error('mainCelebrant', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
+							</div>
+						</div>
 					</div>
-				</div>
-            </div>
+				</form> <!-- form end -->
+				</div><!-- card body end-->
+            </div> <!--card-->
           </div>
-  
-        </div>
-      </div>
+		</div> <!--content row end-->
+</div> <!--content end -->
       
