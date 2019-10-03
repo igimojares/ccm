@@ -249,7 +249,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','fef5fcfb63e466274b17fd6d748c38f8','admin','admin','igi.mojares@gmail.com','0000-00-00 00:00:00','','Active');
+INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin','admin','igi.mojares@gmail.com','0000-00-00 00:00:00','','Active');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
