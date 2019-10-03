@@ -3,8 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="<?php echo base_url() .'public'; ?>/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="<?php echo base_url() .'public'; ?>/assets/img/favicon.png">
+  <link rel="shortcut icon" href="http://www.ust.edu.ph/wp-content/themes/theme_cross/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
 	UST - Center for Campus Ministry
@@ -50,17 +49,17 @@
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
-          <li <?php if($this->router->fetch_class() == 'dashboard'){ echo 'class="active"'; } ?> >
-            <a href="<?php echo base_url() . 'index.php/dashboard/'; ?>">
+          <li <?php if($this->router->fetch_class() == 'recollection'){ echo 'class="active"'; } ?> >
+            <a href="<?php echo base_url() . 'index.php/Recollection/add'; ?>">
               <i class="now-ui-icons design_app"></i>
-              <p>Dashboard</p>
+              <p>Line-up</p>
             </a>
           </li>
           
-          <li <?php if($this->router->fetch_class() == 'customer'){ echo 'class="active"'; } ?> >
-            <a href="<?php echo base_url() . 'index.php/customer/'; ?>">
+          <li <?php if($this->router->fetch_class() == 'view'){ echo 'class="active"'; } ?> >
+            <a href="<?php echo base_url() . 'index.php/view/'; ?>">
               <i class="now-ui-icons users_single-02"></i>
-              <p>Customers</p>
+              <p>view</p>
             </a>
           </li>
 		  

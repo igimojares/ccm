@@ -7,7 +7,7 @@ class LoginModel extends CI_Model {
 	
 	function validateLogin($param)
 	{
-		$sql = 'select * from Users where userName = ? and password = ?';
+		$sql = 'select * from users where username = ? and password = ?';
 		
 		$query = $this->db->query($sql,$param);
 		
@@ -17,7 +17,7 @@ class LoginModel extends CI_Model {
 	
 	function getUsers()
 	{
-		$sql = 'select * from Users';
+		$sql = 'select * from users';
 		
 		$query = $this->db->query($sql);
 		
@@ -30,7 +30,7 @@ class LoginModel extends CI_Model {
 		$sql = "insert into Users(userName, password, firstName, lastName, email, isActive, maker)
 				values('".$param['username']."','". $param['password'] ."','" . $param['firstName'] ."','" . $param['lastName'] . "','" . $param['email'] . "',1,1);";	
 		
-		echo $sql;
+		//echo $sql;
 		$this->db->trans_begin();
 
 		$query = $this->db->query($sql,$param);

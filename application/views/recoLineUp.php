@@ -7,6 +7,7 @@
 function addRow(tableId)
 {
 	
+	var colleges = "<?php foreach($colleges as $q){ echo '<option value=\''. $q->id .'\'>'. $q->college .'</option>'; } ?>";
 	
 	if(tableId == "section")
 	{
@@ -21,13 +22,97 @@ function addRow(tableId)
 			cell0.innerHTML = "<td align='center'>"+ rowCount +".</td>";
 		
 		var cell1 = document.createElement("TD");
-			cell1.innerHTML = "<td><input type='text' size='10' class=\"form-control\" maxlength='10' name='section" + rowCount + "'id='section" + rowCount + "' value=''></td>";
+			cell1.innerHTML = "<td><input type='text' required class='form-control' maxlength='10' name='section[]'></td>";
 		
 		var cell2 = document.createElement("TD");
-			cell2.innerHTML = "<td align='center'><input type='number' class=\"form-control\" size='4' maxlength='4' name='sectionCount" + rowCount + "' id='sectionCount" + rowCount + "' value='' ></td>";
+			cell2.innerHTML = "<td align='center'><input required type='number' class='form-control' size='4' maxlength='4' name='sectionCount[]'></td>";
 		
 			
 		document.getElementById("rowno").value = rowCount;
+		row.appendChild(cell0);
+		row.appendChild(cell1);
+		row.appendChild(cell2);
+		tbody.appendChild(row);
+	
+	}
+	
+	else if(tableId == "emcee")
+	{
+		
+		
+		var rowCount = document.getElementById("emcee").rows.length; 
+		var initialElementCount = 0;
+		var tbody = document.getElementById("emcee").getElementsByTagName("tbody")[0];
+		var row = document.createElement("TR");
+		var i=0;
+		
+		var cell0 = document.createElement("TD");
+			cell0.innerHTML = "<td align='center'>"+ rowCount +".</td>";
+		
+		var cell1 = document.createElement("TD");
+			cell1.innerHTML = "<td><input type='text' required class='form-control'  name='emcee[]'  value=''></td>";
+		
+		var cell2 = document.createElement("TD");
+			cell2.innerHTML = "<td align='center'><select required class='form-control' name='emceeCollege[]' >"+ colleges +"</select></td>";
+		
+		
+			
+		document.getElementById("rownoEmcee").value = rowCount;
+		row.appendChild(cell0);
+		row.appendChild(cell1);
+		row.appendChild(cell2);
+		tbody.appendChild(row);
+	
+	}
+	
+	else if(tableId == "animators")
+	{
+
+		var rowCount = document.getElementById("animators").rows.length; 
+		var initialElementCount = 0;
+		var tbody = document.getElementById("animators").getElementsByTagName("tbody")[0];
+		var row = document.createElement("TR");
+		var i=0;
+		
+		var cell0 = document.createElement("TD");
+			cell0.innerHTML = "<td align='center'>"+ rowCount +".</td>";
+		
+		var cell1 = document.createElement("TD");
+			cell1.innerHTML = "<td><input type='text' required  class='form-control' name='animator[]' ></td>";
+		
+		var cell2 = document.createElement("TD");
+			cell2.innerHTML = "<td align='center'><select required class='form-control' name='animatorCollege[]' >"+ colleges +"</select></td>";
+		
+			
+		document.getElementById("rownoAnimators").value = rowCount;
+		row.appendChild(cell0);
+		row.appendChild(cell1);
+		row.appendChild(cell2);
+		tbody.appendChild(row);
+	
+	}
+	
+	else if(tableId == "ushers")
+	{
+
+		var rowCount = document.getElementById("ushers").rows.length; 
+		var initialElementCount = 0;
+		var tbody = document.getElementById("ushers").getElementsByTagName("tbody")[0];
+		var row = document.createElement("TR");
+		var i=0;
+		
+		var cell0 = document.createElement("TD");
+			cell0.innerHTML = "<td align='center'>"+ rowCount +".</td>";
+		
+		var cell1 = document.createElement("TD");
+			cell1.innerHTML = "<td><input required type='text' class='form-control' name='usher[]' ></td>";
+		
+		var cell2 = document.createElement("TD");
+			cell2.innerHTML = "<td align='center'><select required class='form-control' name='usherCollege[]' >"+ colleges +"</select></td>";
+		
+			
+		document.getElementById("rownoUshers").value = rowCount;
+		
 		row.appendChild(cell0);
 		row.appendChild(cell1);
 		row.appendChild(cell2);
@@ -53,12 +138,54 @@ function deleteRow(tableId)
 			document.getElementById("rowno").value = totalR;
 		}
 	}
+	
+	else if(tableId == "emcee")
+	{
+		
+		var elementTable = document.getElementById("emcee");
+		var rowCount = document.getElementById("emcee").rows.length-1;
+		
+		if(rowCount >1)
+		{
+			elementTable.deleteRow(rowCount);
+			var totalR = rowCount-1;
+			document.getElementById("rownoEmcee").value = totalR;
+		}
+	}
+	
+	else if(tableId == "animators")
+	{
+		
+		var elementTable = document.getElementById("animators");
+		var rowCount = document.getElementById("animators").rows.length-1;
+		
+		if(rowCount >1)
+		{
+			elementTable.deleteRow(rowCount);
+			var totalR = rowCount-1;
+			document.getElementById("rownoAnimators").value = totalR;
+		}
+	}
+	
+	else if(tableId == "ushers")
+	{
+		
+		var elementTable = document.getElementById("ushers");
+		var rowCount = document.getElementById("ushers").rows.length-1;
+		
+		if(rowCount >1)
+		{
+			elementTable.deleteRow(rowCount);
+			var totalR = rowCount-1;
+			document.getElementById("rownoUshers").value = totalR;
+		}
+	}
 }
 
 </script>
 
 <div class="content">
-<form>
+<form action="<?php echo base_url(); ?>index.php/Recollection/submit/" method="post" >
 	<div class="row">
 		<div class="col-md-12">
 		<?php if($this->input->get('message') != ''){ ?>
@@ -90,7 +217,9 @@ function deleteRow(tableId)
 							<div class="form-group">
 								<label>College<span style="color:red;">*</label>
 								<select class="form-control" name="college" id="college">
-									<option value="IICS">IICS</option>
+									<?php foreach($colleges as $q){ ?>
+										<option value="<?php echo $q->id; ?>"><?php echo $q->college; ?></option>
+									<?php } ?>
 								</select>
 								<?php echo form_error('college', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
 							</div>
@@ -101,15 +230,15 @@ function deleteRow(tableId)
 						<div class="col-md-6 pr-1">
 							<div class="form-group">
 								<label>Date<span style="color:red;">*</label>
-								<input type="datetime-local" name="date" id="datepicker" class="form-control" placeholder="Date" value="<?php echo set_value('date'); ?>">
-								<?php echo form_error('lastName', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
+								<input type="datetime-local" required name="date" id="datepicker" class="form-control" placeholder="Date" value="<?php echo set_value('date'); ?>">
+								<?php echo form_error('date', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
 							</div>
 						</div>
 						
 						<div class="col-md-6 pr-1">
 						  <div class="form-group">
 							<label>Venue<span style="color:red;">*</label>
-							<input type="text" name="venue" id="venue" class="form-control" placeholder="Venue" value="<?php echo set_value('date'); ?>">
+							<input type="text" name="venue" id="venue" required class="form-control" placeholder="Venue" value="<?php echo set_value('venue'); ?>">
 							<?php echo form_error('venue', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
 						  </div>
 						</div>
@@ -119,7 +248,7 @@ function deleteRow(tableId)
 						<div class="col-md-6 pr-1">
 							<div class="form-group">
 								<label>Speaker<span style="color:red;">*</label>
-								<input type="text" name="speaker" id="speaker" class="form-control" placeholder="Speaker" value="<?php echo set_value('date'); ?>">
+								<input type="text" name="speaker" required id="speaker" class="form-control" placeholder="Speaker" value="<?php echo set_value('speaker'); ?>">
 								<?php echo form_error('speaker', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
 							</div>
 						</div>
@@ -127,7 +256,33 @@ function deleteRow(tableId)
 						<div class="col-md-6 pr-1">
 							<div class="form-group">
 								<label>Main Celebrant<span style="color:red;">*</label>
-								<input type="text" name="mainCelebrant" id="mainCelebrant" class="form-control" placeholder="Main Celebrant" value="<?php echo set_value('date'); ?>">
+								<input type="text" required name="mainCelebrant" id="mainCelebrant" class="form-control" placeholder="Main Celebrant" value="<?php echo set_value('mainCelebrant'); ?>">
+								<?php echo form_error('mainCelebrant', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-3 pr-1">
+							<div class="form-group">
+								<label>No of Confessors<span style="color:red;">*</label>
+								<input type="text" required name="confessors" id="confessors" class="form-control" placeholder="" value="<?php echo set_value('confessors'); ?>">
+								<?php echo form_error('speaker', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
+							</div>
+						</div>
+						
+						<div class="col-md-3 pr-1">
+							<div class="form-group">
+								<label>No of attended students<span style="color:red;">*</label>
+								<input type="text" required name="students" id="students" class="form-control" placeholder="" value="<?php echo set_value('students'); ?>">
+								<?php echo form_error('mainCelebrant', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
+							</div>
+						</div>
+						
+						<div class="col-md-3 pr-1">
+							<div class="form-group">
+								<label>No who went to confession<span style="color:red;">*</label>
+								<input type="text" required name="confession" id="confession" class="form-control" placeholder="" value="<?php echo set_value('confession'); ?>">
 								<?php echo form_error('mainCelebrant', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
 							</div>
 						</div>
@@ -135,7 +290,44 @@ function deleteRow(tableId)
 					
 				</div><!-- card body end-->
             </div> <!--card-->
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-6">
+			<div class="card">
+				<div class="card-header">
+					<h5 class="title">Emcee</h5>
+				</div>
+				<div class="card-body">
+ 							<input type="hidden" name="rownoEmcee" id="rownoEmcee" value="1">
+							<table id="emcee" class="table table-condensed table-striped"  cellspacing="6"  border="0">
+								<tr>
+									<td><b>No.</b></td>
+									<td><b>Fullname</b></td>
+									<td><b>College</b></td>
+								</tr>
+							
+								<tr>
+									<td>1.</td>
+									<td><input required  type="text" class="form-control" name="emcee[]" id="emcee[]"  size='10' maxlength='10' value=""/></td>
+									<td>
+										<select required name="emceeCollege[]" id="emceeCollege[]" class="form-control">
+										<?php foreach($colleges as $q){ ?>
+											<option value="<?php echo $q->id; ?>"><?php echo $q->college; ?></option>
+										<?php } ?>
+										</select>
+									</td>
+								</tr>			
+							</table>
+							
+							<input type="button" class="btn btn-primary" value="ADD" onclick="addRow('emcee')" />
+							<input type="button" class="btn btn-secondary" value="DELETE" onclick="deleteRow('emcee')" />
+				</div>
+			</div> <!-- card section> -->
+			</div>
 			
+			<div class="col-md-6">
 			<div class="card">
 				<div class="card-header">
 					<h5 class="title">Section</h5>
@@ -151,19 +343,157 @@ function deleteRow(tableId)
 							
 								<tr>
 									<td>1.</td>
-									<td><input type="text" class="form-control" name="section1" id="section1"  size='10' maxlength='10' value=""/></td>
-									<td><input type="number" class="form-control" name="sectionCount1" id="sectionCount1" size='4'  maxlength='4' value=""/></td>
+									<td><input required  type="text" class="form-control" name="section[]" id="section"  size='14' maxlength='10' value=""/></td>
+									<td><input required type="number" class="form-control" name="sectionCount[]" id="sectionCount"   maxlength='4' value=""/></td>
 								</tr>			
 							</table>
 							
-							<input type="button"  class="btn btn-success" value="ADD" onclick="addRow('section')" />
-							<input type="button" class="btn btn-warning" value="DELETE" onclick="deleteRow('section')" />
+							<input type="button" class="btn btn-primary" value="ADD" onclick="addRow('section')" />
+							<input type="button" class="btn btn-secondary" value="DELETE" onclick="deleteRow('section')" />
 				</div>
 			</div> <!-- card section> -->
-				
+			</div>
 			
-          </div>
-		</div> <!--content row end-->
+			<div class="col-md-6">
+			<div class="card">
+				<div class="card-header">
+					<h5 class="title">Animators</h5>
+				</div>
+				<div class="card-body">
+ 							<input type="hidden" name="rownoAnimators" id="rownoAnimators" value="1">
+							<table  id="animators" class="table table-condensed table-striped"  cellspacing="6"  border="0">
+								<tr>
+									<td><b>No.</b></td>
+									<td><b>Fullname</b></td>
+									<td><b>College</b></td>
+								</tr>
+							
+								<tr>
+									<td>1.</td>
+									<td><input required type="text" class="form-control" name="animator[]" id="animator" value=""/></td>
+									<td>
+										<select required class="form-control" name="animatorCollege[]" id="animatorCollege">
+										<?php foreach($colleges as $q){ ?>
+											<option value="<?php echo $q->id; ?>"><?php echo $q->college; ?></option>
+										<?php } ?>
+										</select>
+									</td>
+								</tr>			
+							</table>
+							
+							<input type="button" class="btn btn-primary" value="ADD" onclick="addRow('animators')" />
+							<input type="button" class="btn btn-secondary" value="DELETE" onclick="deleteRow('animators')" />
+				</div>
+			</div> <!-- card section> -->
+			</div>
+			
+			
+			<div class="col-md-6">
+			<div class="card">
+				<div class="card-header">
+					<h5 class="title">Ushers</h5>
+				</div>
+				<div class="card-body">
+ 							<input type="hidden" name="rownoUshers" id="rownoUshers" value="1">
+							<table required id="ushers" class="table table-condensed table-striped"  cellspacing="6"  border="0">
+								<tr>
+									<td><b>No.</b></td>
+									<td><b>Fullname</b></td>
+									<td><b>College</b></td>
+								</tr>
+							
+								<tr>
+									<td>1.</td>
+									<td><input required type="text" class="form-control" name="usher[]" id="usher"  value=""/></td>
+									<td>
+										<select class="form-control" name="usherCollege[]" id="usherCollege[]">
+										<?php foreach($colleges as $q){ ?>
+											<option value="<?php echo $q->id; ?>"><?php echo $q->college; ?></option>
+										<?php } ?>tion>
+										</select>
+									</td>
+								</tr>			
+							</table>
+							
+							<input type="button" class="btn btn-primary" value="ADD" onclick="addRow('ushers')" />
+							<input type="button" class="btn btn-secondary" value="DELETE" onclick="deleteRow('ushers')" />
+				</div>
+			</div> <!-- card section> -->
+			</div>
+			
+			
+			<div class="col-md-6">
+			<div class="card">
+				<div class="card-header">
+					<h5 class="title">Solo Singer</h5>
+				</div>
+				<div class="card-body">
+ 							<input type="hidden" name="rownoUshers" id="rownoUshers" value="1">
+							<table id="singers" class="table table-condensed table-striped"  cellspacing="6"  border="0">
+								<tr>
+									<!--<td><b>No.</b></td>-->
+									<td><b>Fullname</b></td>
+									<td><b>College</b></td>
+								</tr>
+							
+								<tr>
+									<!--<td>1.</td>-->
+									<td><input required type="text" class="form-control" name="soloSinger[]" id="soloSinger[]"  size='10' maxlength='10' value=""/></td>
+									<td>
+										<select required class="form-control" name="soloSingerCollege[]" id="soloSingerCollege[]">
+										<?php foreach($colleges as $q){ ?>
+											<option value="<?php echo $q->id; ?>"><?php echo $q->college; ?></option>
+										<?php } ?>
+										</select>
+									</td>
+								</tr>			
+							</table>
+							
+							<!--<input type="button" class="btn btn-primary" value="ADD" onclick="addRow('ushers')" />
+							<input type="button" class="btn btn-secondary" value="DELETE" onclick="deleteRow('ushers')" />-->
+				</div>
+			</div> <!-- card section> -->
+			</div>
+			
+			<div class="col-md-6">
+			<div class="card">
+				<div class="card-header">
+					<h5 class="title">Prayer Leader</h5>
+				</div>
+				<div class="card-body">
+ 							<input type="hidden" name="rownoUshers" id="rownoUshers" value="1">
+							<table id="prayerLeader" class="table table-condensed table-striped"  cellspacing="6"  border="0">
+								<tr>
+									<!--<td><b>No.</b></td>-->
+									<td><b>Fullname</b></td>
+									<td><b>College</b></td>
+								</tr>
+							
+								<tr>
+									<!--<td>1.</td>-->
+									<td><input type="text" required class="form-control" name="prayerLeader[]" id="prayerLeader[]" value=""/></td>
+									<td>
+										<select required class="form-control" name="prayerLeaderCollege[]" id="prayerLeaderCollege">
+										<?php foreach($colleges as $q){ ?>
+											<option value="<?php echo $q->id; ?>"><?php echo $q->college; ?></option>
+										<?php } ?>
+										</select>
+									</td>
+								</tr>			
+							</table>
+							
+							<!--<input type="button" class="btn btn-primary" value="ADD" onclick="addRow('ushers')" />
+							<input type="button" class="btn btn-secondary" value="DELETE" onclick="deleteRow('ushers')" />-->
+				</div>
+			</div><!-- card section> -->
+			</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<button class="btn btn-primary btn-lg pull-right" type="submit">Submit</button>
+		</div>
+	</div>
 </form>
 </div> <!--content end -->
       

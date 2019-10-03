@@ -60,13 +60,11 @@ class Welcome extends CI_Controller {
 		
 		if(!empty($query))
 		{
-			$this->session->set_userdata('userId',$query[0]->userId);
-			$this->session->set_userdata('userName',$query[0]->userName);
+			$this->session->set_userdata('id',$query[0]->id);
+			$this->session->set_userdata('username',$query[0]->username);
 			$this->session->set_userdata('firstName',$query[0]->firstName);
 			$this->session->set_userdata('lastName',$query[0]->lastName);
-			$this->session->set_userdata('admin',$query[0]->admin);
-			$this->session->set_userdata('maker',$query[0]->maker);
-			$this->session->set_userdata('checker',$query[0]->checker);
+			$this->session->set_userdata('admin',$query[0]->isAdmin);
 			$this->session->set_userdata('logged_in',true);
 			
 			redirect(base_url().'index.php/transaction/');

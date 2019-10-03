@@ -23,93 +23,247 @@ class Recollection extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-        $this->redirectLoginMaker();
+        $this->redirectLogin();
     }
 	
-	public function redirectLoginMaker()
+	public function redirectLogin()
 	{
 		if($this->session->userdata('logged_in') != TRUE)
 		{
 			redirect(base_url() . 'index.php');
 		}
 		
-		if($this->session->userdata('maker') != true)
-		{
-			redirect(base_url() . 'index.php/welcome/accessDenied');
-		}
 		
 	}
 	 
 	public function index()
 	{
-		//echo $this->session->userdata('userName');
-		$param['search'] =  $this->input->get('search');
 		
-		$this->load->model('CustomerModel');
-		$query = $this->CustomerModel->searchCustomer($param);
-		$data['query'] = $query;
-		//print_r($query);
-		
-		$query = $this->CustomerModel->getNotes();
-		$data['notes'] = $query;
-		
-		$data['mainContent'] =  'customerTransaction';
+		$data['mainContent'] =  'message';
 		$this->load->view('includes/template',$data);
 	}
 	
 	function add()
 	{
-		//$param['search'] =  $this->input->get('search');
 		
-		/*$this->load->model('CustomerModel');
-		$query = $this->CustomerModel->searchCustomer($param);
-		$data['query'] = $query;
-		//print_r($query);
-		
-		$query = $this->CustomerModel->getNotes();
-		$data['notes'] = $query;*/
+		$this->load->model('RecollectionModel');
+		$query = $this->RecollectionModel->getColleges();
+		$data['colleges'] = $query;
 		
 		$data['mainContent'] =  'recoLineUp';
 		$this->load->view('includes/template',$data);
 		
 	}
 	
-	function addCustomer()
+	function submit()
 	{
-		$this->load->helper(array('form', 'url'));
+		$param['college'] = $this->input->post('college');
+		$param['date'] = $this->input->post('date');
+		$param['venue'] = $this->input->post('venue');
+		$param['speaker'] = $this->input->post('speaker');
+		$param['mainCelebrant'] = $this->input->post('mainCelebrant');
+		$param['confessors'] = $this->input->post('confessors');
+		$param['students'] = $this->input->post('students');
+		$param['confession'] = $this->input->post('confession');
+		
+		$param['emcee'] = $this->input->post('emcee');
+		$param['emceeCollege'] = $this->input->post('emceeCollege');
+		
+		$param['section'] = $this->input->post('section');
+		$param['sectionCount'] = $this->input->post('sectionCount');
+		
+		$param['usher'] = $this->input->post('usher');
+		$param['usherCollege'] = $this->input->post('usherCollege');
+		
+		$param['animator'] = $this->input->post('animator');
+		$param['animatorCollege'] = $this->input->post('animatorCollege');
+		
+		$param['singer'] = $this->input->post('soloSinger');
+		$param['singerCollege'] = $this->input->post('soloSingerCollege');
+		
+		$param['prayerLeader'] = $this->input->post('prayerLeader');
+		$param['prayerLeaderCollege'] = $this->input->post('prayerLeaderCollege');
+	
+		echo '<pre>';
+		print_r($param);
+		
 
-        $this->load->library('form_validation');
+       $this->load->model('RecollectionModel');
+		$query =  $this->RecollectionModel->submit($param);
+		$param['requestId'] = $query;
+		
+		if(!empty($param['section'])){
+			
+			foreach($param['section'] as $q)
+			{
+				$section['section'][] = $q;
+			
+			}
+			foreach($param['sectionCount'] as $q)
+			{
+				$section['sectionCount'][] = $q;
+			}
+			
+			$i = 0;
+			$count = count($param['section']);
+		
+			for($i; $i<$count; $i++)
+			{
+				$param['section'] = $section['section'][$i];
+				$param['sectionCount'] = $section['sectionCount'][$i];
+				$this->RecollectionModel->addSections($param);
+			}
+	
+		}
+		
+		if(!empty($param['emcee'])){
+			
+			unset($array);
+			
+			foreach($param['emcee'] as $q)
+			{
+				$array['name'][] = $q;
+			
+			}
+			foreach($param['emceeCollege'] as $q)
+			{
+				$array['college'][] = $q;
+			}
+			
+			$i = 0;
+			$count = count($param['emcee']);
+			
+		
+			for($i; $i<$count; $i++)
+			{
+				$param['name'] = $array['name'][$i];
+				$param['college'] = $array['college'][$i];
+				$this->RecollectionModel->addEmcee($param);
+			}
+			
+		}
+		
+		if(!empty($param['animator'])){
+			
+						
+			unset($array);
+			
+			foreach($param['animator'] as $q)
+			{
+				$array['name'][] = $q;
+			
+			}
+			foreach($param['animatorCollege'] as $q)
+			{
+				$array['college'][] = $q;
+			}
+			
+			$i = 0;
+			$count = count($param['animator']);
+			
+		
+			for($i; $i<$count; $i++)
+			{
+				$param['name'] = $array['name'][$i];
+				$param['college'] = $array['college'][$i];
+				$this->RecollectionModel->addAnimator($param);
+			}
+			
+		}
+		
+		
+		if(!empty($param['usher'])){
+			
+			unset($array);
+			
+			foreach($param['usher'] as $q)
+			{
+				$array['name'][] = $q;
+			
+			}
+			foreach($param['usherCollege'] as $q)
+			{
+				$array['college'][] = $q;
+			}
+			
+			$i = 0;
+			$count = count($param['usher']);
+			
+		
+			for($i; $i<$count; $i++)
+			{
+				$param['name'] = $array['name'][$i];
+				$param['college'] = $array['college'][$i];
+				$this->RecollectionModel->addUsher($param);
+			}
+			
+		}
+		
+		if(!empty($param['singer'])){
+			
+			unset($array);
+			
+			
+			foreach($param['singer'] as $q)
+			{
+				$array['name'][] = $q;
+			
+			}
+			foreach($param['singerCollege'] as $q)
+			{
+				$array['college'][] = $q;
+			}
+			
+			$i = 0;
+			$count = count($param['singerCollege']);
+			
+		
+			for($i; $i<$count; $i++)
+			{
+				$param['name'] = $array['name'][$i];
+				$param['college'] = $array['college'][$i];
+				$this->RecollectionModel->addSinger($param);
+			}
+			
+		}
 
-        $this->form_validation->set_rules('cif', 'CIF', 'callback_cif_check|required');
-        $this->form_validation->set_rules('lastName', 'Last Name', 'required');
-        $this->form_validation->set_rules('firstName', 'First Name', 'required');
-        $this->form_validation->set_rules('middleName', 'Middle Name', 'required');
-
-        if($this->form_validation->run() == FALSE)
-        {
-			$data['mainContent'] =  'addClient';
-			$this->load->view('includes/template',$data);
-        }
-        else
-        {
-		   $param['cif'] = $this->input->post('cif');
-		   $param['lastName'] = $this->input->post('lastName');
-		   $param['firstName'] = $this->input->post('firstName');
-		   $param['middleName'] =  $this->input->post('middleName');
-		   $param['addedBy'] = $this->session->userdata('userName');
+		if(!empty($param['prayerLeader'])){
+			
+			unset($array);
+		
+			foreach($param['prayerLeader'] as $q)
+			{
+				$array['name'][] = $q;
+			
+			}
+			foreach($param['prayerLeaderCollege'] as $q)
+			{
+				$array['college'][] = $q;
+			}
+			
+			$i = 0;
+			$count = count($param['prayerLeader']);
+			
+		
+			for($i; $i<$count; $i++)
+			{
+				$param['name'] = $array['name'][$i];
+				$param['college'] = $array['college'][$i];
+				$this->RecollectionModel->addPrayerLeader($param);
+			}
+			
+		}			
+			
 		   
-           $this->load->model('CustomerModel');
-		   $query = $this->CustomerModel->addCustomer($param);
-		   
-		   if($query == true)
+		if($query > 0)
 		   {
-				redirect(base_url() . 'index.php/customer/?message=Customer was successfully added.&mode=true');
+				redirect(base_url() . 'index.php/Recollection/?message=Line was successfully added.&mode=true');
 		   }
 		   else
 		   {
-				redirect(base_url() . 'index.php/customer/?message=An Error Occured, please try again later.&mode=false');
+				redirect(base_url() . 'index.php/Recollection/?message=An Error Occured, please try again later.&mode=false');
 		   }
-        }
+        
 	}
 	
 	function cif_check($cif)
@@ -127,30 +281,5 @@ class Recollection extends CI_Controller {
 			return true;
 		}
 	}
-	
-	/*function add()
-	{
-		$documents = $this->input->post('documents');
-		$param['maker'] =  $this->session->userdata('userName');
-		$param['customerId'] = $this->input->post('customerId');
-		$param['documents'] = '';
-		
-		foreach ($documents as $d)
-		{
-			$param['documents'] .= $d . ",";
-		}
-		
-		$this->load->model('CustomerModel');
-		$query = $this->CustomerModel->addTransactions($param);
-		
-		if($query == true)
-		   {
-				redirect(base_url() . 'index.php/transaction/?message=Document Logs has been added.&mode=true');
-		   }
-		   else
-		   {
-				redirect(base_url() . 'index.php/transaction/?message=An Error Occured, please try again later.&mode=false');
-		   }
-		
-	}*/
+
 }
