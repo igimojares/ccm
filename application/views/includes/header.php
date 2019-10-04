@@ -44,8 +44,8 @@
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
-      <div class="logo">
-        <img src="<?php echo base_url(); ?>public/assets/img/logo.png" />
+      <div class="logo" style="text-align: center;">
+        <img src="<?php echo base_url(); ?>public/assets/img/logo.png" width="50%" height="50%" />
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
@@ -104,7 +104,7 @@
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				  
                   <i class="now-ui-icons users_single-02"></i>
-				  <?php echo $this->session->userdata('userName'); ?>
+				  <?php echo $this->session->userdata('username'); ?>
                   <p>
                     <span class="d-lg-none d-md-block">Some Actions</span>
                   </p>

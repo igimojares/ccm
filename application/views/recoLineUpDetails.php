@@ -206,7 +206,7 @@ function deleteRow(tableId)
 				</div>
 				<?php } ?>
 			<?php } ?>
-			
+			<input type="hidden" name="requestId" value="<?php echo $details[0]->id; ?>" />
 			<div class="card">
 				<div class="card-header">
 					<h5 class="title">UST Center for Campus Ministry Recollection Line-up AY 2019-2020</h5>

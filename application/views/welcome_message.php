@@ -45,22 +45,22 @@
 						</div>
 						<input type="password" name="password" class="form-control" placeholder="password">
 					</div>
-					<!--<div class="row align-items-center remember">
-						<input type="checkbox">Remember Me
-					</div>--><br /><br />
+					
+						
+	
 					<div class="form-group">
 						<input type="submit" value="Login" required class="btn float-right login_btn">
 					</div>
 				</form>
 			</div>
-			<!--<div class="card-footer">
+			<div class="card-footer">
 				<div class="d-flex justify-content-center links">
-				
-				</div>
-				<div class="d-flex justify-content-center">
 					
 				</div>
-			</div>-->
+				<div class="d-flex justify-content-center">
+					<a href="<?php echo base_url() . "index.php/welcome/register/";  ?>">Register!</a>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

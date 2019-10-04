@@ -34,7 +34,7 @@ class Welcome extends CI_Controller {
 		}
 		else
 		{
-			redirect(base_url() . 'index.php/transaction/');
+			redirect(base_url() . 'index.php/dashboard/');
 		}
 	}
 	
@@ -136,6 +136,15 @@ class Welcome extends CI_Controller {
 				redirect(base_url() . 'index.php/welcome/admin/?message=An Error Occured, please try again later.&mode=false');
 		   }
         }
+	}
+	
+	function register()
+	{
+		
+		$data['error'] = '';
+		$data['mainContent'] =  'register';
+		$this->load->view('includes/template',$data);
+	
 	}
 	
 	function update()

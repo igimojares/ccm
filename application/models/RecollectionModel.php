@@ -52,6 +52,36 @@ class RecollectionModel extends CI_Model {
 		
 	}
 	
+	function deleteRec($param)
+	{
+		$this->db->where('id', $param['requestId']);
+		$this->db->delete('request');
+	}
+	
+	function update($param)
+	{
+		
+		$post_data = array(
+		'id' => $param['requestId'],
+        'college'   =>  $param['college'],
+        'recollectionDate'   =>  $param['date'],
+        'venue' => $param['venue'],
+		'speaker' => $param['speaker'],
+		'mainCelebrant' => $param['mainCelebrant'],
+		'noOfConfessors' => $param['confessors'],
+		'noOfAttendedStudents' => $param['students'],
+		'noOfConfession' => $param['confession'],
+		'dateRequested' => date('Y-m-d H:i:s'),
+		'requestedBy' => $this->session->userdata('username'),
+		'status' => 'requested'
+		);
+		
+		$this->db->insert('request',$post_data);
+	
+		return $this->db->insert_id();
+		
+	}
+	
 	function addSections($param)
 	{
 		$post_data = array(
