@@ -45,11 +45,11 @@
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
       <div class="logo">
-        <img src="<?php echo base_url(); ?>public/assets/img/logo1.png" />
+        <img src="<?php echo base_url(); ?>public/assets/img/logo.png" />
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
-          <li <?php if($this->router->fetch_class() == 'recollection'){ echo 'class="active"'; } ?> >
+          <li <?php if($this->router->fetch_class() == 'Recollection'){ echo 'class="active"'; } ?> >
             <a href="<?php echo base_url() . 'index.php/Recollection/add'; ?>">
               <i class="now-ui-icons design_app"></i>
               <p>Line-up</p>
