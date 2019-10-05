@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `ustccm` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `ustccm`;
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: ustccm
 -- ------------------------------------------------------
--- Server version	5.5.5-10.1.19-MariaDB
+-- Server version	5.5.5-10.1.21-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -117,7 +117,7 @@ CREATE TABLE `prayerleader` (
   KEY `FK_leader_college_idx` (`college`),
   CONSTRAINT `FK_leader_college` FOREIGN KEY (`college`) REFERENCES `colleges` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_leader_request` FOREIGN KEY (`request`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,7 +126,6 @@ CREATE TABLE `prayerleader` (
 
 LOCK TABLES `prayerleader` WRITE;
 /*!40000 ALTER TABLE `prayerleader` DISABLE KEYS */;
-INSERT INTO `prayerleader` VALUES (2,2,'prayerLeader',1),(3,3,'prayerLeader',1),(4,4,'prayerLeader',1);
 /*!40000 ALTER TABLE `prayerleader` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,7 +208,7 @@ CREATE TABLE `singers` (
   KEY `FK_singer_college_idx` (`college`),
   CONSTRAINT `FK_singer_college` FOREIGN KEY (`college`) REFERENCES `colleges` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_singer_request` FOREIGN KEY (`request`) REFERENCES `request` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,7 +217,6 @@ CREATE TABLE `singers` (
 
 LOCK TABLES `singers` WRITE;
 /*!40000 ALTER TABLE `singers` DISABLE KEYS */;
-INSERT INTO `singers` VALUES (2,2,'singer',1),(3,3,'singer',1),(4,4,'singer',1);
 /*!40000 ALTER TABLE `singers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,7 +247,6 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','admin','admin','igi.mojares@gmail.com','0000-00-00 00:00:00','','Active');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -281,6 +278,14 @@ LOCK TABLES `usher` WRITE;
 /*!40000 ALTER TABLE `usher` DISABLE KEYS */;
 /*!40000 ALTER TABLE `usher` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'ustccm'
+--
+
+--
+-- Dumping routines for database 'ustccm'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -291,4 +296,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-03  9:44:03
+-- Dump completed on 2019-10-05 18:27:16
