@@ -165,4 +165,13 @@ class RecollectionModel extends CI_Model {
 		
 		return ($query->num_rows() > 0) ? $query->result() : NULL;	
 	}
+	
+	function getTotals()
+	{
+		$sql = "select sum(noOfConfessors) as 'totalConfessors', sum(noOfAttendedStudents) as 'totalStudents', sum(noOfConfession) as 'totalConfession' from request";
+		
+		$query = $this->db->query($sql);
+		
+		return ($query->num_rows() > 0) ? $query->result() : NULL;	
+	}
 }

@@ -37,13 +37,10 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
 		error_reporting(0);
-		//echo $this->session->userdata('userName');
-		$this->load->model('CustomerModel');
-		$query = $this->CustomerModel->getTransactions();
-		$data['query'] = $query;
 		
-		$query = $this->CustomerModel->topDocs();
-		$data['docs'] = $query;
+		$this->load->model('recollectionModel');
+		$query = $this->recollectionModel->getTotals();
+		$data['totals'] = $query;
 		
 		$data['mainContent'] =  'dashboard';
 		$this->load->view('includes/template',$data);

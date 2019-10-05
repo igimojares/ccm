@@ -46,7 +46,18 @@ class Welcome extends CI_Controller {
 		}
 	}
 	
-	
+	public function redirectLoginAdmin()
+	{
+		if($this->session->userdata('logged_in') != TRUE)
+		{
+			redirect(base_url() . 'index.php');
+		}
+		
+		if($this->session->userdata('admin') != '1')
+		{
+			redirect(base_url() . 'index.php/welcome/accessDenied');
+		}
+	}
 	
 	function validate()
 	{
@@ -67,7 +78,7 @@ class Welcome extends CI_Controller {
 			$this->session->set_userdata('admin',$query[0]->isAdmin);
 			$this->session->set_userdata('logged_in',true);
 			
-			redirect(base_url().'index.php/transaction/');
+			redirect(base_url().'index.php/dashboard/');
 		}
 		else
 		{
@@ -90,6 +101,9 @@ class Welcome extends CI_Controller {
 	
 	function admin()
 	{
+		
+		$this->redirectLoginAdmin();
+		
 		$this->load->model('LoginModel');
 		$query = $this->LoginModel->getUsers();
 		$data['query'] =  $query;
@@ -99,6 +113,47 @@ class Welcome extends CI_Controller {
 	}
 	
 	function addUser()
+	{
+		$this->load->helper(array('form', 'url'));
+
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('username', 'User name', 'required');
+		$this->form_validation->set_rules('email', 'Email address', 'required|valid_email');
+        $this->form_validation->set_rules('firstName', 'First Name', 'required');
+        $this->form_validation->set_rules('lastName', 'Last Name', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+        $this->form_validation->set_rules('confPassword', 'Confirm Password', 'required|matches[password]');
+
+        if($this->form_validation->run() == FALSE)
+        {
+			$data['mainContent'] =  'register';
+			$this->load->view('includes/template',$data);
+        }
+        else
+        {
+		   $param['username'] = $this->input->post('username');
+		   $param['email'] = $this->input->post('email');
+		   $param['firstName'] = $this->input->post('firstName');
+		   $param['lastName'] =  $this->input->post('lastName');
+		   $param['password'] = md5($this->input->post('password'));
+		   
+           $this->load->model('LoginModel');
+		   $query = $this->LoginModel->addUser($param);
+		   
+		   if($query == true)
+		   {
+				redirect(base_url() . 'index.php/?message=User was successfully added.&mode=true');
+		   }
+		   else
+		   {
+				redirect(base_url() . 'index.php/?message=An Error Occured, please try again later.&mode=false');
+		   }
+        }
+	}
+	
+	
+	function addUserAdmin()
 	{
 		$this->load->helper(array('form', 'url'));
 
@@ -129,14 +184,15 @@ class Welcome extends CI_Controller {
 		   
 		   if($query == true)
 		   {
-				redirect(base_url() . 'index.php/welcome/admin/?message=User was successfully added.&mode=true');
+				redirect(base_url() . 'index.php/welcome/admin?message=User was successfully added.&mode=true');
 		   }
 		   else
 		   {
-				redirect(base_url() . 'index.php/welcome/admin/?message=An Error Occured, please try again later.&mode=false');
+				redirect(base_url() . 'index.php/welcome/admin?message=An Error Occured, please try again later.&mode=false');
 		   }
         }
 	}
+	
 	
 	function register()
 	{
@@ -147,11 +203,90 @@ class Welcome extends CI_Controller {
 	
 	}
 	
+	function forgot()
+	{
+		$data['error'] = '';
+		$data['mainContent'] =  'forgot';
+		$this->load->view('includes/template',$data);
+		
+	}
+	
+	function forgotSubmit()
+	{
+		$param['username'] = $this->input->post('username');
+		
+		$this->load->model('LoginModel');
+		
+		$query =  $this->LoginModel->getUserById($param);
+		
+		if(!empty($query))
+		{
+			$url = base_url() . 'index.php/welcome/changePass/?key=' . md5($query[0]->id);
+			
+			$this->load->library('email');
+
+			$this->email->from('noreply@campusministry.com', 'No Reply');
+			$this->email->to($query[0]->email);
+
+
+			$this->email->subject('UST Campus Ministry Change Password');
+			$this->email->message('<p>Please see the click the <a href="'. $url .'">here</a> to change your password</p>');
+
+			$this->email->send();
+
+			
+			//echo $url;
+		}
+		
+		redirect(base_url() . 'index.php/?message=Password change instructions was sent to your mail.&mode=true');
+		
+	}
+	
+	function changePass()
+	{
+		$param['key'] = $this->input->get('key');
+		
+		$this->load->model('LoginModel');
+		$query = $this->LoginModel->checkKey($param);
+		
+		if(!empty($query))
+		{
+			$data['mainContent'] =  'changepass';
+			$this->load->view('includes/template',$data);
+			
+		}
+		else
+		{
+			redirect(base_url() . 'index.php/?message=Opps! Something went wrong');
+		}
+	
+	}
+	
+	function updatePassword()
+	{
+		$param['key'] = $this->input->post('key');
+		$param['password'] = md5($this->input->post('password'));
+		
+		$this->load->model('LoginModel');
+		$query = $this->LoginModel->changePassword($param);
+		
+		redirect(base_url() . 'index.php/?message=your password has been changed.');
+	}
+	
 	function update()
 	{
 		$param['username'] = $this->input->post('user');
-		$param['maker'] = $this->input->post('maker');
-		$param['checker'] = $this->input->post('checker');
+		$param['admin'] = $this->input->post('admin');
+		$param['active'] = $this->input->post('active');
+		
+		if($param['active'] == '1')
+		{
+			$param['active'] = 'Active';
+		}
+		else
+		{
+			$param['active'] = 'Inactive';
+		}
 		
 		$this->load->model('LoginModel');
 		$query = $this->LoginModel->updateUser($param);

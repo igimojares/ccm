@@ -49,6 +49,14 @@
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
+		
+          <li <?php if($this->router->fetch_class() == 'dashboard'){ echo 'class="active"'; } ?> >
+            <a href="<?php echo base_url() . 'index.php/dashboard'; ?>">
+              <i class="now-ui-icons design_app"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+			
           <li <?php if($this->router->fetch_class() == 'Recollection'){ echo 'class="active"'; } ?> >
             <a href="<?php echo base_url() . 'index.php/Recollection/add'; ?>">
               <i class="now-ui-icons design_app"></i>

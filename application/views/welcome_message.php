@@ -31,6 +31,7 @@
 			<div class="card-body">
 				<form action="<?php echo base_url() . 'index.php/welcome/validate/'; ?>" method="POST" >
 					<?php if($error != ''){ echo "<p style='color:red;'>". $error ."</p>"; } ?>
+					<?php if($this->input->get('message') != ''){ echo "<p style='color:white;'>". $this->input->get('message') ."</p>"; } ?>
 					
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
@@ -55,7 +56,7 @@
 			</div>
 			<div class="card-footer">
 				<div class="d-flex justify-content-center links">
-					
+					<a href="<?php echo base_url() . "index.php/welcome/forgot/";  ?>">Forgot Password!</a>
 				</div>
 				<div class="d-flex justify-content-center">
 					<a href="<?php echo base_url() . "index.php/welcome/register/";  ?>">Register!</a>

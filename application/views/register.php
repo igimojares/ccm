@@ -63,7 +63,7 @@
                     <div class="col-md-6 pr-1">
                       <div class="form-group">
                         <label>Password<span style="color:red;">*</span></label>
-                        <input type="password" name="password" class="form-control" placeholder="First Name" value="<?php echo set_value('password'); ?>">
+                        <input type="password" name="password" class="form-control" placeholder="Password" value="<?php echo set_value('password'); ?>">
 						<?php echo form_error('password', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
                       </div>
                     </div>
@@ -71,7 +71,7 @@
                     <div class="col-md-6 pr-1">
                       <div class="form-group">
                         <label>Confirm Password<span style="color:red;">*</label>
-                        <input type="password" name="confPassword"class="form-control" placeholder="LastName" value="<?php echo set_value('confPassword'); ?>">
+                        <input type="password" name="confPassword"class="form-control" placeholder="Password" value="<?php echo set_value('confPassword'); ?>">
 						<?php echo form_error('confPassword', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
                       </div>
                     </div>

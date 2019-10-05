@@ -24,7 +24,7 @@
                 <h5 class="title">Add User</h5>
               </div>
               <div class="card-body">
-                <form action="<?php echo base_url() . 'index.php/welcome/addUser'; ?>" method="post">
+                <form action="<?php echo base_url() . 'index.php/welcome/addUserAdmin'; ?>" method="post">
                   <div class="row">
                     <div class="col-md-6 pr-1">
                       <div class="form-group">
@@ -63,7 +63,7 @@
                     <div class="col-md-6 pr-1">
                       <div class="form-group">
                         <label>Password<span style="color:red;">*</span></label>
-                        <input type="text" name="password" class="form-control" placeholder="First Name" value="<?php echo set_value('password'); ?>">
+                        <input type="password" name="password" class="form-control" placeholder="Password" value="<?php echo set_value('password'); ?>">
 						<?php echo form_error('password', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
                       </div>
                     </div>
@@ -71,7 +71,7 @@
                     <div class="col-md-6 pr-1">
                       <div class="form-group">
                         <label>Confirm Password<span style="color:red;">*</label>
-                        <input type="text" name="confPassword"class="form-control" placeholder="LastName" value="<?php echo set_value('confPassword'); ?>">
+                        <input type="password" name="confPassword"class="form-control" placeholder="Password" value="<?php echo set_value('confPassword'); ?>">
 						<?php echo form_error('confPassword', '<small" class="form-text text-muted"><span style="color:red;">', '</span></small>'); ?>
                       </div>
                     </div>
@@ -93,8 +93,9 @@
                     <thead class=" text-primary">
                       <th>username</th>
                       <th>Name</th>
-                      <th>Maker</th>
-                      <th>Checker</th>
+                      <th>email</th>
+                      <th>admin</th>
+                      <th>active</th>
                       <th></th>
                     </thead>
                     <tbody>
@@ -104,12 +105,16 @@
 					  ?>
 						<form action="<?php echo base_url() . 'index.php/welcome/update/'; ?>" method="post" >
 						<tr>
-							<td><?php echo $q->userName; ?></td>
+							<td><?php echo $q->username; ?></td>
 							<td><?php echo strtoupper($q->firstName .' ' . $q->lastName); ?></td>
-							<td><input  type="hidden" name="user" value="<?php echo $q->userName; ?>"/>
-							<input type="checkbox" name="maker" value='1' <?php if($q->maker == '1') { echo 'checked=checked';} ?> />
+							<td><?php echo $q->email; ?></td>
+							<td>
+								<input  type="hidden" name="user" value="<?php echo $q->username; ?>"/>
+								<input type="checkbox" name="admin" value='1' <?php if($q->isAdmin == '1') { echo 'checked=checked';} ?> />
 							</td>
-							<td><input type="checkbox" name="checker" value='1' <?php if($q->checker == '1') { echo 'checked=checked';} ?> /></td>
+							<td>
+								<input type="checkbox" name="active" value='1' <?php if($q->status == 'Active') { echo 'checked=checked';} ?> />
+							</td>
 							<td><button type="submit">Update</button></td>
 						</tr>
 						</form>
